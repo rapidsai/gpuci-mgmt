@@ -31,7 +31,7 @@ sudo useradd -u 1001 jenkins
 sudo usermod -aG adm,sudo,docker,ubuntu jenkins
 
 logger "Ensure ubuntu user has full rights on directory for Jenkins work"
-sudo mkdir -p /ubuntu
+sudo mkdir -p /jenkins
 sudo chown -R ubuntu:ubuntu /jenkins
 sudo chmod g+w /jenkins
 
