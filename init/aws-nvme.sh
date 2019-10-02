@@ -5,27 +5,39 @@
 # AWS init script for gpuCI nodes with nvme drives on nodes
 #
 
+SCRIPT_NAME="$0"
+function logger {
+  TS=`date +%F_%H-%M-%S`
+  echo "[$SCRIPT_NAME $TS] $@"
+}
 
-# Update/upgrade image first; before unattended-upgrades runs
+logger "Update/upgrade image first; before unattended-upgrades runs"
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get clean
 
-# Check if nvme is already mounted; if not format and mount
-if ! grep -qa '/dev/nvme1n1 /jenkins ' /proc/mounts; then
-  sudo mkfs -t ext4 /dev/nvme1n1 && sudo mkdir /jenkins && sudo mount /dev/nvme1n1 /jenkins
+logger "Check if nvme is already mounted; if not format and mount"
+# Need this pkg for selecting correct nvme
+sudo apt-get install -y nvme-cli
+INSTANCE_NVME=`sudo nvme list | grep "Amazon EC2 NVMe Instance Storage" | awk '{ print $1 }'`
+logger "Instance NVMe found - $INSTANCE_NVME"
+if ! grep -qa "$INSTANCE_NVME /jenkins " /proc/mounts; then
+  logger "$INSTANCE_NVME not mounted, mounting and formatting"
+  sudo mkfs -t ext4 $INSTANCE_NVME && sudo mkdir -p /jenkins && sudo mount $INSTANCE_NVME /jenkins
+else
+  logger "$INSTANCE_NVME already mounted"
 fi
 
-# Check mounts
+logger "Check mounts"
 mount
 df -h
 
-# Ensure ubuntu user has full rights on directory for Jenkins work
+logger "Ensure ubuntu user has full rights on directory for Jenkins work"
 sudo chown -R ubuntu:ubuntu /jenkins
 
-# Move /tmp to nvme for faster perf
+logger "Move /tmp to NVMe for faster perf"
 sudo mv /tmp /jenkins
 sudo ln -s /jenkins/tmp /tmp
 
-# Override docker setup and utilize internal docker registry mirror
+logger "Override docker setup and utilize internal docker registry mirror"
 sudo service docker stop
 sudo cat /etc/docker/daemon.json
 cat <<EOL > /tmp/daemon.json
@@ -38,9 +50,9 @@ sudo mv /tmp/daemon.json /etc/docker/daemon.json
 sudo cat /etc/docker/daemon.json
 sudo service docker start
 
-# Ensure docker system is clean
+logger "Ensure docker system is clean"
 docker system prune -f
 
-# Connect node to Jenkins
+logger "Connect node to Jenkins"
 wget https://gpuci.gpuopenanalytics.com/plugin/ec2/AMI-Scripts/ubuntu-ami-setup.sh
 sudo sh ubuntu-ami-setup.sh gpuci.gpuopenanalytics.com
