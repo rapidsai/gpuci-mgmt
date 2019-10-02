@@ -26,9 +26,17 @@ logger "Check mounts"
 mount
 df -h
 
-logger "Create jenkins user"
-sudo useradd -u 1001 jenkins
-sudo usermod -aG adm,sudo,docker,ubuntu jenkins
+logger "Check for jenkins user"
+if grep -c '^jenkins:' /etc/passwd ; then
+  logger "jenkins is already created"
+else
+  logger "Create jenkins user"
+  sudo useradd -u 1001 jenkins
+  sudo usermod -aG adm,sudo,docker,ubuntu jenkins
+fi
+
+logger "Setup git lfs for jenkins"
+sudo -u jenkins git lfs install
 
 logger "Ensure ubuntu user has full rights on directory for Jenkins work"
 sudo mkdir -p /jenkins
