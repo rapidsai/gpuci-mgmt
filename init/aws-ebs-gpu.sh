@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 #
 # Copyright (c) 2019, NVIDIA CORPORATION.
 #
@@ -14,6 +13,8 @@ function logger {
 
 logger "Update/upgrade image first; before unattended-upgrades runs"
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get clean
+
+set -e
 
 logger "Install git lfs"
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
