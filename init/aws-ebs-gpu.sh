@@ -19,8 +19,8 @@ mount
 df -h
 
 logger "Create jenkins user"
-sudo useradd -u 1001 -g 1001 jenkins
-sudo usermod -aG adm sudo jenkins
+sudo useradd -u 1001 jenkins
+sudo usermod -aG adm,sudo,docker jenkins
 
 logger "Ensure jenkins user has full rights on directory for Jenkins work"
 sudo mkdir -p /jenkins
