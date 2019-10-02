@@ -2,7 +2,7 @@
 #
 # Copyright (c) 2019, NVIDIA CORPORATION.
 #
-# AWS init script for gpuCI nodes with EBS only storage, nv-docker, and jenkins user (1001/1001)
+# AWS init script for gpuCI nodes with EBS only storage, nv-docker
 #
 
 SCRIPT_NAME="$0"
@@ -26,22 +26,9 @@ logger "Check mounts"
 mount
 df -h
 
-logger "Check for jenkins user"
-if grep -c '^jenkins:' /etc/passwd ; then
-  logger "jenkins is already created"
-else
-  logger "Create jenkins user"
-  sudo useradd -u 1001 jenkins
-  sudo usermod -aG adm,sudo,docker,ubuntu jenkins
-fi
-
-logger "Setup git lfs for jenkins"
-sudo -u jenkins git lfs install
-
-logger "Ensure ubuntu user has full rights on directory for Jenkins work"
+logger "Ensure jenkins user has full rights on directory for Jenkins work"
 sudo mkdir -p /jenkins
-sudo chown -R ubuntu:ubuntu /jenkins
-sudo chmod g+w /jenkins
+sudo chown -R jenkins:jenkins /jenkins
 
 logger "Override docker setup and utilize internal docker registry mirror"
 sudo service docker stop
