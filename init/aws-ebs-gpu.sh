@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 #
 # Copyright (c) 2019, NVIDIA CORPORATION.
 #
@@ -14,17 +15,24 @@ function logger {
 logger "Update/upgrade image first; before unattended-upgrades runs"
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get clean
 
+logger "Install git lfs"
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt-get update
+sudo apt-get install git-lfs -y
+git lfs install
+
 logger "Check mounts"
 mount
 df -h
 
 logger "Create jenkins user"
 sudo useradd -u 1001 jenkins
-sudo usermod -aG adm,sudo,docker jenkins
+sudo usermod -aG adm,sudo,docker,ubuntu jenkins
 
-logger "Ensure jenkins user has full rights on directory for Jenkins work"
-sudo mkdir -p /jenkins
-sudo chown -R jenkins:jenkins /jenkins
+logger "Ensure ubuntu user has full rights on directory for Jenkins work"
+sudo mkdir -p /ubuntu
+sudo chown -R ubuntu:ubuntu /jenkins
+sudo chmod g+w /jenkins
 
 logger "Override docker setup and utilize internal docker registry mirror"
 sudo service docker stop
