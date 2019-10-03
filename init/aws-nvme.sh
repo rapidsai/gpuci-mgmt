@@ -27,7 +27,7 @@ function apt-butler {
       ((i=i+1))
   done
   logger "apt-butler running 'sudo apt-get ${@}'"
-  sudo apt-get ${@}
+  DEBIAN_FRONTEND=noninteractive sudo apt-get ${@}
   logger "apt-butler finished 'sudo apt-get ${@}'"
 }
 
