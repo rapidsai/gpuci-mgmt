@@ -4,6 +4,7 @@
 #
 # AWS init script for gpuCI nodes with EBS only storage, nv-docker
 #
+set -e
 
 SCRIPT_NAME="$0"
 function logger {
@@ -31,8 +32,6 @@ sudo service cron restart
 logger "Update/upgrade image first; before unattended-upgrades runs"
 apt-butler update
 apt-butler upgrade -y
-
-set -e
 
 logger "Install git-lfs and awscli"
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
