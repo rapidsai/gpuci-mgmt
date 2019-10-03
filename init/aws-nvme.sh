@@ -15,7 +15,7 @@ function logger {
 function apt-butler {
   logger "apt-butler tasked to run 'sudo apt-get ${@}'"
   i=0
-  while sudo lsof /var/lib/dpkg/lock* 2>&1 > /dev/null ; do
+  while sudo lsof /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend 2>&1 > /dev/null ; do
       logger "apt-butler ... waiting for apt instances to finish ..."
       sleep 5
       ((i=i+1))
