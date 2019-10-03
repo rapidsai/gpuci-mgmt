@@ -11,6 +11,10 @@ function logger {
   echo "[$SCRIPT_NAME $TS] $@"
 }
 
+
+logger "Add delay for cron apt-get update/upgrade job"
+sed -i '2s/.*/sleep 900/' /etc/cron.daily/apt-compat
+
 logger "Wait for system apt-get update/upgrade to finish"
 i=0
 tput sc
