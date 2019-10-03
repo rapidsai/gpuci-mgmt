@@ -12,26 +12,25 @@ function logger {
   echo "[$SCRIPT_NAME $TS] $@"
 }
 
+
 function apt-butler {
   logger "apt-butler tasked to run 'sudo apt-get ${@}'"
   i=0
-  while sudo lsof /var/lib/dpkg/lock* 2>&1 > /dev/null ; do
+  while sudo lsof /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend 2>&1 > /dev/null ; do
+      logger "apt-butler ... waiting for apt instances to finish ..."
+      sleep 5
+      ((i=i+1))
+  done
+  sleep 5
+  while sudo lsof /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend 2>&1 > /dev/null ; do
       logger "apt-butler ... waiting for apt instances to finish ..."
       sleep 5
       ((i=i+1))
   done
   logger "apt-butler running 'sudo apt-get ${@}'"
-  sudo apt-get ${@}
+  DEBIAN_FRONTEND=noninteractive sudo apt-get ${@}
   logger "apt-butler finished 'sudo apt-get ${@}'"
 }
-
-logger "Add delay for cron apt-get update/upgrade job"
-sudo sed -i '2s/.*/sleep 900/' /etc/cron.daily/apt-compat
-sudo service cron restart
-
-logger "Update/upgrade image first; before unattended-upgrades runs"
-apt-butler update
-apt-butler upgrade -y
 
 logger "Check mounts"
 mount
