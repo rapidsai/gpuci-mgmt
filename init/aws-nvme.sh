@@ -30,6 +30,7 @@ function apt-butler {
   echo -e "\n"
   logger "apt-butler running 'sudo apt-get ${@}'"
   sudo apt-get ${@}
+  logger "apt-butler finished 'sudo apt-get ${@}'"
 }
 
 logger "Add delay for cron apt-get update/upgrade job"
