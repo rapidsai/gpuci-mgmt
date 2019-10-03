@@ -11,28 +11,32 @@ function logger {
   echo "[$SCRIPT_NAME $TS] $@"
 }
 
+function apt-butler {
+  logger "apt-butler tasked to run 'sudo apt-get ${@}'"
+  i=0
+  tput sc
+  while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
+      case $(($i % 4)) in
+          0 ) j="-" ;;
+          1 ) j="\\" ;;
+          2 ) j="|" ;;
+          3 ) j="/" ;;
+      esac
+      tput rc
+      echo -en "\r[$j] Waiting for other software managers to finish..." 
+      sleep 1
+      ((i=i+1))
+  done
+  sudo apt-get ${@}
+}
+
 logger "Add delay for cron apt-get update/upgrade job"
 sudo sed -i '2s/.*/sleep 900/' /etc/cron.daily/apt-compat
 sudo service cron restart
 
-logger "Wait for system apt-get update/upgrade to finish"
-i=0
-tput sc
-while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
-    case $(($i % 4)) in
-        0 ) j="-" ;;
-        1 ) j="\\" ;;
-        2 ) j="|" ;;
-        3 ) j="/" ;;
-    esac
-    tput rc
-    echo -en "\r[$j] Waiting for other software managers to finish..." 
-    sleep 1
-    ((i=i+1))
-done
-
 logger "Update/upgrade image first; before unattended-upgrades runs"
-sudo apt-get update && sudo apt-get upgrade -y
+apt-butler update
+apt-butler upgrade -y
 
 set -e
 
@@ -41,7 +45,7 @@ mount
 df -h
 
 logger "Install awscli"
-sudo apt-get install awscli -y
+apt-butler install awscli -y
 
 logger "Ensure ubuntu user has full rights on directory for Jenkins work"
 sudo mkdir -p /jenkins
