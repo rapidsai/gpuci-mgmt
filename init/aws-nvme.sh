@@ -14,6 +14,8 @@ function logger {
 logger "Update/upgrade image first; before unattended-upgrades runs"
 sudo apt-get update && sudo apt-get upgrade -y
 
+set -e
+
 logger "Check if nvme is already mounted; if not format and mount"
 # Need this pkg for selecting correct nvme
 sudo apt-get install -y nvme-cli
