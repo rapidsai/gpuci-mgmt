@@ -11,7 +11,6 @@ function logger {
   echo "[$SCRIPT_NAME $TS] $@"
 }
 
-
 logger "Add delay for cron apt-get update/upgrade job"
 sudo sed -i '2s/.*/sleep 900/' /etc/cron.daily/apt-compat
 sudo service cron restart
