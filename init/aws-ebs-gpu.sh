@@ -13,7 +13,8 @@ function logger {
 
 
 logger "Add delay for cron apt-get update/upgrade job"
-sed -i '2s/.*/sleep 900/' /etc/cron.daily/apt-compat
+sudo sed -i '2s/.*/sleep 900/' /etc/cron.daily/apt-compat
+sudo service cron restart
 
 logger "Wait for system apt-get update/upgrade to finish"
 i=0
