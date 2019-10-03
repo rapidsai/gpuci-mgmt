@@ -29,10 +29,6 @@ logger "Add delay for cron apt-get update/upgrade job"
 sudo sed -i '2s/.*/sleep 900/' /etc/cron.daily/apt-compat
 sudo service cron restart
 
-logger "Update/upgrade image first; before unattended-upgrades runs"
-apt-butler update
-apt-butler upgrade -y
-
 logger "Install git-lfs and awscli"
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 apt-butler update
