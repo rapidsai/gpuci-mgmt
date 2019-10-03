@@ -4,7 +4,8 @@
 #
 # AWS init script for gpuCI nodes with nvme drives on nodes
 #
-set -ex
+set -e
+
 SCRIPT_NAME="$0"
 function logger {
   TS=`date +%F_%H-%M-%S`
