@@ -14,20 +14,14 @@ function logger {
 function apt-butler {
   logger "apt-butler tasked to run 'sudo apt-get ${@}'"
   i=0
-  tput sc
-  while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
-      case $(($i % 4)) in
-          0 ) j="-" ;;
-          1 ) j="\\" ;;
-          2 ) j="|" ;;
-          3 ) j="/" ;;
-      esac
-      tput rc
-      echo -en "\r[$j] Waiting for other software managers to finish..." 
-      sleep 1
+  while sudo lsof /var/lib/dpkg/lock* 2>&1 > /dev/null ; do
+      logger "apt-butler ... waiting apt instances to finish ..."
+      sleep 5
       ((i=i+1))
   done
+  logger "apt-butler running 'sudo apt-get ${@}'"
   sudo apt-get ${@}
+  logger "apt-butler finished 'sudo apt-get ${@}'"
 }
 
 logger "Add delay for cron apt-get update/upgrade job"
