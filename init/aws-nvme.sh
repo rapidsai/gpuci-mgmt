@@ -11,6 +11,25 @@ function logger {
   echo "[$SCRIPT_NAME $TS] $@"
 }
 
+function apt-butler {
+  logger "apt-butler tasked to run 'sudo apt-get ${@}'"
+  i=0
+  tput sc
+  while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
+      case $(($i % 4)) in
+          0 ) j="-" ;;
+          1 ) j="\\" ;;
+          2 ) j="|" ;;
+          3 ) j="/" ;;
+      esac
+      tput rc
+      echo -en "\r[$j] Waiting for other software managers to finish..." 
+      sleep 1
+      ((i=i+1))
+  done
+  sudo apt-get ${@}
+}
+
 logger "Add delay for cron apt-get update/upgrade job"
 sudo sed -i '2s/.*/sleep 900/' /etc/cron.daily/apt-compat
 sudo service cron restart
@@ -32,13 +51,14 @@ while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
 done
 
 logger "Update/upgrade image first; before unattended-upgrades runs"
-sudo apt-get update && sudo apt-get upgrade -y
+apt-butler update
+apt-butler upgrade -y
 
 set -e
 
 logger "Check if nvme is already mounted; if not format and mount"
 # Need this pkg for selecting correct nvme
-sudo apt-get install -y nvme-cli
+apt-butler install -y nvme-cli
 INSTANCE_NVME=`sudo nvme list | grep "Amazon EC2 NVMe Instance Storage" | awk '{ print $1 }'`
 logger "Instance NVMe found - $INSTANCE_NVME"
 if ! grep -qa "$INSTANCE_NVME /jenkins " /proc/mounts; then
@@ -49,7 +69,7 @@ else
 fi
 
 logger "Install awscli"
-sudo apt-get install -y awscli
+apt-butler install -y awscli
 
 logger "Check mounts"
 mount
