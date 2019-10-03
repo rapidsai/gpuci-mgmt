@@ -15,7 +15,7 @@ function apt-butler {
   logger "apt-butler tasked to run 'sudo apt-get ${@}'"
   i=0
   tput sc
-  while fuser /var/lib/dpkg/lock >/dev/null 2>&1 ; do
+  while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1 ; do
       case $(($i % 4)) in
           0 ) j="-" ;;
           1 ) j="\\" ;;
