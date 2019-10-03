@@ -12,7 +12,7 @@ function logger {
 }
 
 logger "Update/upgrade image first; before unattended-upgrades runs"
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get clean
+sudo apt-get update && sudo apt-get upgrade -y
 
 logger "Check if nvme is already mounted; if not format and mount"
 # Need this pkg for selecting correct nvme
@@ -25,6 +25,9 @@ if ! grep -qa "$INSTANCE_NVME /jenkins " /proc/mounts; then
 else
   logger "$INSTANCE_NVME already mounted"
 fi
+
+logger "Install awscli"
+sudo apt-get install -y awscli
 
 logger "Check mounts"
 mount
