@@ -16,10 +16,10 @@ sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get clean
 
 set -e
 
-logger "Install git lfs"
+logger "Install git-lfs and awscli"
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 sudo apt-get update
-sudo apt-get install git-lfs -y
+sudo apt-get install git-lfs awscli -y
 git lfs install
 
 logger "Check mounts"
