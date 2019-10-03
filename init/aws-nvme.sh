@@ -31,10 +31,6 @@ function apt-butler {
   logger "apt-butler finished 'sudo apt-get ${@}'"
 }
 
-logger "Add delay for cron apt-get update/upgrade job"
-sudo sed -i '2s/.*/sleep 900/' /etc/cron.daily/apt-compat
-sudo service cron restart
-
 logger "Check if nvme is already mounted; if not format and mount"
 # Need this pkg for selecting correct nvme
 apt-butler install -y nvme-cli
