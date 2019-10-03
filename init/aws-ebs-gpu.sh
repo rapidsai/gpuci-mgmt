@@ -12,7 +12,7 @@ function logger {
 }
 
 logger "Update/upgrade image first; before unattended-upgrades runs"
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get clean
+sudo apt-get update && sudo apt-get upgrade -y
 
 set -e
 
