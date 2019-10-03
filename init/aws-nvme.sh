@@ -4,7 +4,7 @@
 #
 # AWS init script for gpuCI nodes with nvme drives on nodes
 #
-
+set -ex
 SCRIPT_NAME="$0"
 function logger {
   TS=`date +%F_%H-%M-%S`
@@ -27,6 +27,8 @@ function apt-butler {
       sleep 1
       ((i=i+1))
   done
+  echo -e "\n"
+  logger "apt-butler running 'sudo apt-get ${@}'"
   sudo apt-get ${@}
 }
 
@@ -53,8 +55,6 @@ done
 logger "Update/upgrade image first; before unattended-upgrades runs"
 apt-butler update
 apt-butler upgrade -y
-
-set -e
 
 logger "Check if nvme is already mounted; if not format and mount"
 # Need this pkg for selecting correct nvme
