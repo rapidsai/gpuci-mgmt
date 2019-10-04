@@ -12,7 +12,6 @@ function logger {
   echo "[$SCRIPT_NAME $TS] $@"
 }
 
-
 function apt-butler {
   logger "apt-butler tasked to run 'sudo apt-get ${@}'"
   i=0
@@ -35,7 +34,7 @@ function apt-butler {
 logger "Install git-lfs and awscli"
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 apt-butler update
-apt-butler install git-lfs awscli -y
+apt-butler install git-lfs -y
 git lfs install
 
 logger "Check mounts"
@@ -65,7 +64,11 @@ sudo mv /tmp/daemon.json /etc/docker/daemon.json
 sudo cat /etc/docker/daemon.json
 sudo service docker start
 
+logger "Turn on unattended-upgrades"
+apt-butler install -y unattended-upgrades
+
 logger "Ensure docker system is clean"
+set +e
 docker system prune -f
 
 logger "Connect node to Jenkins"
