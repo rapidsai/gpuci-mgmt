@@ -31,7 +31,7 @@ function apt-butler {
   logger "apt-butler finished 'sudo apt-get ${@}'"
 }
 
-logger "Install git-lfs and awscli"
+logger "Install git-lfs"
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 apt-butler update
 apt-butler install git-lfs -y
