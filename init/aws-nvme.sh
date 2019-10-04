@@ -32,8 +32,6 @@ function apt-butler {
 }
 
 logger "Check if nvme is already mounted; if not format and mount"
-# Need this pkg for selecting correct nvme
-apt-butler install -y nvme-cli
 INSTANCE_NVME=`sudo nvme list | grep "Amazon EC2 NVMe Instance Storage" | awk '{ print $1 }'`
 logger "Instance NVMe found - $INSTANCE_NVME"
 if ! grep -qa "$INSTANCE_NVME /jenkins " /proc/mounts; then
@@ -42,9 +40,6 @@ if ! grep -qa "$INSTANCE_NVME /jenkins " /proc/mounts; then
 else
   logger "$INSTANCE_NVME already mounted"
 fi
-
-logger "Install awscli"
-apt-butler install -y awscli
 
 logger "Check mounts"
 mount
@@ -70,7 +65,11 @@ sudo mv /tmp/daemon.json /etc/docker/daemon.json
 sudo cat /etc/docker/daemon.json
 sudo service docker start
 
+logger "Turn on unattended-upgrades"
+apt-butler install -y unattended-upgrades
+
 logger "Ensure docker system is clean"
+set +e
 docker system prune -f
 
 logger "Connect node to Jenkins"
