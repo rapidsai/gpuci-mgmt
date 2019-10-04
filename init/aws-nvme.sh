@@ -29,8 +29,10 @@ df -h
 logger "Ensure ubuntu user has full rights on directory for Jenkins work"
 sudo chown -R ubuntu:ubuntu /jenkins
 
-logger "Move /tmp to NVMe for faster perf"
-sudo mv /tmp /jenkins
+logger "Relocate /tmp to NVMe for faster perf"
+sudo mkdir -p /jenkins/tmp
+sudo rsync -aP /tmp/* /jenkins/tmp/*
+sudo rm -rf /tmp
 sudo ln -s /jenkins/tmp /tmp
 
 logger "Override docker setup and utilize internal docker registry mirror"
