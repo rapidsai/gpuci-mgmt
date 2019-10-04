@@ -39,9 +39,6 @@ sudo mv ~/daemon.json /etc/docker/daemon.json
 sudo cat /etc/docker/daemon.json
 sudo service docker start
 
-logger "Turn on unattended-upgrades"
-sudo apt-get update && sudo apt-get install -y unattended-upgrades
-
 logger "Ensure docker system is clean"
 set +e
 docker system prune -f
