@@ -12,7 +12,6 @@ function logger {
   echo "[$SCRIPT_NAME $TS] $@"
 }
 
-
 function apt-butler {
   logger "apt-butler tasked to run 'sudo apt-get ${@}'"
   i=0
@@ -36,9 +35,6 @@ logger "Check mounts"
 mount
 df -h
 
-logger "Install awscli"
-apt-butler install awscli -y
-
 logger "Ensure ubuntu user has full rights on directory for Jenkins work"
 sudo mkdir -p /jenkins
 sudo chown -R ubuntu:ubuntu /jenkins
@@ -56,7 +52,11 @@ sudo mv /tmp/daemon.json /etc/docker/daemon.json
 sudo cat /etc/docker/daemon.json
 sudo service docker start
 
+logger "Turn on unattended-upgrades"
+apt-butler install -y unattended-upgrades
+
 logger "Ensure docker system is clean"
+set +e
 docker system prune -f
 
 logger "Connect node to Jenkins"
