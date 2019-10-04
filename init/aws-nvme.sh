@@ -13,7 +13,7 @@ function logger {
 }
 
 logger "Check if nvme is already mounted; if not format and mount"
-INSTANCE_NVME=`sudo nvme list | grep "Amazon EC2 NVMe Instance Storage" | awk '{ print $1 }'`
+INSTANCE_NVME=`sudo nvme list | grep "Amazon EC2 NVMe Instance Storage" | awk '{ print $1 }' | head -n1`
 logger "Instance NVMe found - $INSTANCE_NVME"
 if ! grep -qa "$INSTANCE_NVME /jenkins " /proc/mounts; then
   logger "$INSTANCE_NVME not mounted, mounting and formatting"
