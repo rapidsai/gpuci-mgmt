@@ -30,11 +30,15 @@ logger "Ensure ubuntu user has full rights on directory for Jenkins work"
 sudo chown -R ubuntu:ubuntu /jenkins
 
 logger "Relocate /tmp to NVMe for faster perf"
-sudo mkdir -p /jenkins/tmp
-sudo rsync -aP /tmp/* /jenkins/tmp/*
-sudo rm -rf /tmp
-sudo ln -s /jenkins/tmp /tmp
-
+if [ ! -d "/jenkins/tmp" ] ; then
+  logger "/tmp needs relocating"
+  sudo mv /tmp /jenkins
+  sudo ln -s /jenkins/tmp /tmp
+  logger "/tmp relocated to /jenkins"
+else
+  logger "/jenkins/tmp already exists"
+fi
+  
 logger "Override docker setup and utilize internal docker registry mirror"
 sudo service docker stop
 sudo cat /etc/docker/daemon.json
