@@ -12,25 +12,6 @@ function logger {
   echo "[$SCRIPT_NAME $TS] $@"
 }
 
-function apt-butler {
-  logger "apt-butler tasked to run 'sudo apt-get ${@}'"
-  i=0
-  while sudo lsof /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend 2>&1 > /dev/null ; do
-      logger "apt-butler ... waiting for apt instances to finish ..."
-      sleep 5
-      ((i=i+1))
-  done
-  sleep 5
-  while sudo lsof /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend 2>&1 > /dev/null ; do
-      logger "apt-butler ... waiting for apt instances to finish ..."
-      sleep 5
-      ((i=i+1))
-  done
-  logger "apt-butler running 'sudo apt-get ${@}'"
-  DEBIAN_FRONTEND=noninteractive sudo apt-get ${@}
-  logger "apt-butler finished 'sudo apt-get ${@}'"
-}
-
 logger "Check mounts"
 mount
 df -h
@@ -53,7 +34,7 @@ sudo cat /etc/docker/daemon.json
 sudo service docker start
 
 logger "Turn on unattended-upgrades"
-apt-butler install -y unattended-upgrades
+sudo apt-get update && sudo apt-get install -y unattended-upgrades
 
 logger "Ensure docker system is clean"
 set +e
