@@ -52,8 +52,13 @@ sudo mv /tmp/daemon.json /etc/docker/daemon.json
 sudo cat /etc/docker/daemon.json
 
 logger "Move docker to nvme on /jenkins"
-sudo mv /var/lib/docker /jenkins/
-sudo ln -s /jenkins/docker /var/lib/docker
+if [ ! -d /jenkins/docker ] ; then
+  logger "Moving /var/lib/docker to /jenkins/docker"
+  sudo mv /var/lib/docker /jenkins/
+  sudo ln -s /jenkins/docker /var/lib/docker
+else
+  logger "Docker is already moved"
+fi
 sudo service docker start
 
 logger "Ensure docker system is clean"
