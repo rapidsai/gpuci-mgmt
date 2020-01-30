@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# retry
+# gpuci_retry
 #
 # retries a command 3 times after a non-zero exit, waiting 60 seconds
 # between attempts. 3 times and 60 seconds are default values which can be
@@ -14,7 +14,7 @@
 #   environment as a side-effect.
 #
 # Example usage:
-# $ retry conda install cudatoolkit=10.0 rapids=0.12
+# $ gpuci_retry conda install cudatoolkit=10.0 rapids=0.12
 #
 # Configurable options are set using the following env vars:
 #
@@ -26,7 +26,7 @@
 #                         seconds, to wait between retries.
 #                         Default is a 10 second sleep
 #
-function retry {
+function gpuci_retry {
     command=$1
     shift
     args=$*
@@ -52,4 +52,4 @@ function retry {
     return ${retcode}
 }
 
-retry $@
+gpuci_retry $@
