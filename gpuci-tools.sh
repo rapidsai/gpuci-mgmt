@@ -12,6 +12,7 @@ function install_tool {
   logging "Installing $1 script..."
   SAVE_LOC="$HOME/bin/${1}"
   curl --insecure -q "${URL}/${1}" > $SAVE_LOC
+  chmod +x $SAVE_LOC
   logging "Installed $1 script..."
 }
 
