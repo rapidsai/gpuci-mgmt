@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# logger
+#
+# provides a logging mechanism for scripts to report progress
+#
+function logger {
+  TS=`date`
+  echo "[$TS] $@"
+}
+
+logger $@
