@@ -39,12 +39,12 @@ function gpuci_retry {
     while (( ${retcode} != 0 )) && \
           (( ${retries} < ${max_retries} )); do
       ((retries++))
-      gpuci_logger "========================================"
-      gpuci_logger "GPUCI_RETRY> ${retries} of ${max_retries}..."
-      gpuci_logger "GPUCI_RETRY> sleeping for ${sleep_interval} seconds..."
+      echo "========================================"
+      echo "GPUCI_RETRY> ${retries} of ${max_retries}..."
+      echo -n "GPUCI_RETRY> sleeping for ${sleep_interval} seconds..."
       sleep ${sleep_interval}
-      gpuci_logger "GPUCI_RETRY> done sleeping..."
-      gpuci_logger "========================================"
+      echo "done"
+      echo "========================================"
 
       ${command} ${args}
       retcode=$?
