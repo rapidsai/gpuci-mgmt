@@ -22,9 +22,9 @@ mkdir -p $HOME/bin
 install_tool retry
 install_tool logger
 
-logging "Adding ~/bin to PATH..."
-export PATH="$HOME/bin:$PATH"
-echo 'export PATH="$HOME/bin:$PATH"' >> $HOME/.bashrc
+logging "Adding ~/bin to PATH in ~/.bashrc ..."
+echo "export PATH=\"\$HOME/bin:\$PATH\"" >> $HOME/.bashrc
 source $HOME/.bashrc
 
 logging "Tools installed..."
+logging "Use 'source ~/.bashrc' to use tools in current shell..."
