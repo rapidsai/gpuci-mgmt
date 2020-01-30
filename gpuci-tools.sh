@@ -11,7 +11,7 @@ function logging {
 function install_tool {
   logging "Installing $1 script..."
   SAVE_LOC="$HOME/bin/${1}"
-  curl -s "${URL}/${1}" -o $SAVE_LOC
+  curl -s "${URL}/${1}" -o $SAVE_LOC > /dev/null
   chmod +x $SAVE_LOC
   logging "Installed $1 script..."
 }
