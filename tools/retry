@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 # retry
 #
 # retries a command 3 times after a non-zero exit, waiting 60 seconds
