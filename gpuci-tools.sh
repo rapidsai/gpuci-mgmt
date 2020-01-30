@@ -10,13 +10,18 @@ function logging {
 
 function install_tool {
   logging "Installing $1 script..."
-  SAVE_LOC=/tmp/${1}
-  curl --insecure "${URL}/${1}" > $SAVE_LOC
-  source $SAVE_LOC
-  rm -f $SAVE_LOC
+  SAVE_LOC="$HOME/bin/${1}"
+  curl --insecure -q "${URL}/${1}" > $SAVE_LOC
   logging "Installed $1 script..."
 }
 
-install_tool utils.sh
+logging "Creating ~/bin dir..."
+mkdir -p $HOME/bin
+
+install_tool retry
+install_tool logger
+
+logging "Adding ~/bin to PATH..."
+export PATH="$HOME/bin:$PATH"
 
 logging "Tools installed..."
