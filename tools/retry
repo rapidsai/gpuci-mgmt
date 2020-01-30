@@ -1,13 +1,3 @@
-# logger
-#
-# provides a logging mechanism for scripts to report progress
-#
-function logger {
-  TS=`date`
-  echo "[$TS] $@"
-}
-
-
 # retry
 #
 # retries a command 3 times after a non-zero exit, waiting 60 seconds
@@ -59,3 +49,5 @@ function retry {
     done
     return ${retcode}
 }
+
+retry $@
