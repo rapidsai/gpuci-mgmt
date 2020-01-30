@@ -3,12 +3,20 @@
 
 URL="https://raw.githubusercontent.com/rapidsai/gpuci-mgmt/master/tools"
 
-function logger {
+function logging {
   TS=`date`
   echo "[$TS] $@"
 }
 
-logger "Installing utils script..."
-source /dev/stdin <<< "$(curl --insecure $URL/utils.sh)"
+function install_tool {
+  logging "Installing $1 script..."
+  SAVE_LOC=/tmp/${1}
+  curl --insecure "${URL}/${1}" > $SAVE_LOC
+  source $SAVE_LOC
+  rm -f $SAVE_LOC
+  logging "Installed $1 script..."
+}
 
-logger "Tools installed..."
+install_tool utils.sh
+
+logging "Tools installed..."
