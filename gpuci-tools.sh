@@ -24,5 +24,7 @@ install_tool logger
 
 logging "Adding ~/bin to PATH..."
 export PATH="$HOME/bin:$PATH"
+echo 'export PATH="$HOME/bin:$PATH"' >> $HOME/.bashrc
+source $HOME/.bashrc
 
 logging "Tools installed..."
