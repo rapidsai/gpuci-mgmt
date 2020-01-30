@@ -19,8 +19,8 @@ function install_tool {
 logging "Creating ~/bin dir..."
 mkdir -p $HOME/bin
 
-install_tool retry
-install_tool logger
+install_tool gpuci_retry
+install_tool gpuci_logger
 
 logging "Adding ~/bin to PATH in ~/.bashrc ..."
 echo "export PATH=\"\$HOME/bin:\$PATH\"" >> $HOME/.bashrc
