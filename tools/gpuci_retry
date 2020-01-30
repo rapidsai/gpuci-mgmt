@@ -2,8 +2,8 @@
 #
 # gpuci_retry
 #
-# retries a command 3 times after a non-zero exit, waiting 60 seconds
-# between attempts. 3 times and 60 seconds are default values which can be
+# retries a command 3 times after a non-zero exit, waiting 10 seconds
+# between attempts. 3 times and 10 seconds are default values which can be
 # configured with env vars described below.
 #
 #   NOTE: source this file to update your bash environment with the settings
@@ -20,7 +20,7 @@
 #
 # GPUCI_RETRY_MAX       - set to a positive integer to set the max number of retry
 #                         attempts (attempts after the initial try).
-#                         Default is 10 retries
+#                         Default is 3 retries
 #
 # GPUCI_RETRY_SLEEP     - set to a positive integer to set the duration, in
 #                         seconds, to wait between retries.
@@ -32,7 +32,7 @@ function gpuci_retry {
     args=$*
     max_retries=${GPUCI_RETRY_MAX:=3}
     retries=0
-    sleep_interval=${GPUCI_RETRY_SLEEP:=60}
+    sleep_interval=${GPUCI_RETRY_SLEEP:=10}
 
     ${command} ${args}
     retcode=$?
