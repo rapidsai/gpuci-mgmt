@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# logger
+# gpuci_logger
 #
 # provides a logging mechanism for scripts to report progress
 #
-function logger {
+function gpuci_logger {
   TS=`date`
   echo "[$TS] $@"
 }
 
-logger $@
+gpuci_logger $@
