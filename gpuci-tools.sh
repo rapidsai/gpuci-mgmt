@@ -1,7 +1,7 @@
 #!/bin/bash
 # Tools for gpuCI scripts
 
-URL="https://github.com/rapidsai/gpuci-mgmt"
+URL="https://raw.githubusercontent.com/rapidsai/gpuci-mgmt/master/tools"
 
 function logger {
   TS=`date`
@@ -9,6 +9,6 @@ function logger {
 }
 
 logger "Installing utils script..."
-source /dev/stdin <<< "$(curl --insecure $URL/tools/utils.sh)"
+source /dev/stdin <<< "$(curl --insecure $URL/utils.sh)"
 
 logger "Tools installed..."
