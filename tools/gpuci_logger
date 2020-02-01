@@ -5,8 +5,10 @@
 # provides a logging mechanism for scripts to report progress
 #
 function gpuci_logger {
-  TS=`date`
-  echo "[$TS] $@"
+  TS=`date +%x %X`
+  echo -e "\n"
+  echo ">>gpuCI log<< [$TS] $@"
+  echo -e "\n"
 }
 
 gpuci_logger $@
