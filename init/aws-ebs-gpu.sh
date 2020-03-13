@@ -23,7 +23,7 @@ sudo chown -R jenkins:jenkins /jenkins
 logger "Override docker setup and utilize internal docker registry mirror"
 sudo service docker stop
 sudo cat /etc/docker/daemon.json
-cat <<EOL > ~/daemon.json
+cat <<EOL > /tmp/daemon.json
 {
     "runtimes": {
         "nvidia": {
@@ -35,7 +35,7 @@ cat <<EOL > ~/daemon.json
     "experimental": true
 }
 EOL
-sudo mv ~/daemon.json /etc/docker/daemon.json
+sudo mv /tmp/daemon.json /etc/docker/daemon.json
 sudo cat /etc/docker/daemon.json
 sudo service docker start
 
