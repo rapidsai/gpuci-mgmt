@@ -8,7 +8,6 @@
       - openjdk-8-jdk-headless
       - git
       - git-lfs
-      - awscli
       - nvme-cli
       - ntp
       - build-essential
@@ -20,6 +19,7 @@
       - ca-certificates
       - curl
       - software-properties-common
+      - unzip
 
 - name: Initialize git-lfs
   command: git lfs install
@@ -32,6 +32,15 @@
       - requests
       - PyYaml
       - jinja2
+
+- name: Download awscli
+  unarchive:
+    src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /home/ubuntu/
+    remote_src: yes
+
+- name: Install awscli
+  command: /home/ubuntu/aws/install
 
 - name: Add Docker GPG key
   apt_key:
