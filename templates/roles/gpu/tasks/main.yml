@@ -1,0 +1,36 @@
+---
+- name: Install Docker CE 18.09
+  apt: 
+    update_cache: yes
+    name: docker-ce=5:18.09.1~3-0~ubuntu-bionic
+
+- name: Add key for NVIDIA CUDA repos
+  apt_key:
+    url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+    state: present
+
+- name: Add repo for NVIDIA CUDA drivers
+  apt_repository:
+    repo: "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /"
+
+- name: Install CUDA 10.2
+  apt:
+    name: ['cuda=10.2.89-1','nvidia-driver-440=440.64.00-0ubuntu1','cuda-drivers=440.64.00-1','libnvidia-gl-440=440.64.00-0ubuntu1','nvidia-dkms-440=440.64.00-0ubuntu1','nvidia-modprobe=440.64.00-0ubuntu1','nvidia-settings=440.64.00-0ubuntu1','libnvidia-compute-440=440.64.00-0ubuntu1','nvidia-compute-utils-440=440.64.00-0ubuntu1','libnvidia-decode-440=440.64.00-0ubuntu1','libnvidia-encode-440=440.64.00-0ubuntu1','nvidia-utils-440=440.64.00-0ubuntu1','xserver-xorg-video-nvidia-440=440.64.00-0ubuntu1','libnvidia-cfg1-440=440.64.00-0ubuntu1','libnvidia-ifr1-440=440.64.00-0ubuntu1','libnvidia-fbc1-440=440.64.00-0ubuntu1','nvidia-kernel-source-440=440.64.00-0ubuntu1','libnvidia-common-440=440.64.00-0ubuntu1','nvidia-kernel-common-440=440.64.00-0ubuntu1']
+    state: present
+    install_recommends: no
+    update_cache: yes
+
+- name: Install nvidia docker apt key
+  apt_key:
+    url: https://nvidia.github.io/nvidia-docker/gpgkey
+
+- name: Add nvidia-docker sources list
+  get_url:
+    url: https://nvidia.github.io/nvidia-docker/ubuntu18.04/nvidia-docker.list
+    dest: /etc/apt/sources.list.d/nvidia-docker.list
+
+- name: Install nvidia-docker2
+  apt:
+    name: nvidia-docker2
+    state: latest
+    update_cache: yes

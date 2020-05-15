@@ -1,0 +1,43 @@
+---
+- name: Install common packages
+  apt:
+    update_cache: yes
+    pkg:
+      - jq
+      - ansible
+      - openjdk-8-jdk-headless
+      - git
+      - git-lfs
+      - awscli
+      - nvme-cli
+      - ntp
+      - build-essential
+      - wget
+      - curl
+      - vim
+      - screen
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+
+- name: Initialize git-lfs
+  command: git lfs install
+  vars:
+    ansible_become: no
+
+- name: Install pip packages
+  pip:
+    name:
+      - requests
+      - PyYaml
+      - jinja2
+
+- name: Add Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker apt repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
