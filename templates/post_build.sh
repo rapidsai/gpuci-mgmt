@@ -1,3 +1,9 @@
+#!/bin/bash
+set -ex
+echo "========== Disk info =========="
+df -h
+lsblk
+echo
 echo "========== Python version =========="
 python -V
 echo
