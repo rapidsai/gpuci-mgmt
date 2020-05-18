@@ -1,0 +1,54 @@
+{
+    "variables": {
+        "aws_access_key": "",
+        "aws_secret_key": "",
+        "type": "cpu"
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "access_key": "{{user `aws_access_key`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "region": "us-east-2",
+            "source_ami_filter": {
+                "filters": {
+                    "virtualization-type": "hvm",
+                    "name": "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*",
+                    "root-device-type": "ebs"
+                },
+                "owners": [
+                    "099720109477"
+                ],
+                "most_recent": true
+            },
+            "instance_type": "t2.medium",
+            "associate_public_ip_address": true,
+            "vpc_id": "vpc-81eb9ae9",
+            "subnet_id": "subnet-45f29e2d",
+            "security_group_id": "sg-011a953aa80956de1",
+            "ssh_username": "ubuntu",
+            "ami_name": "gpuci-{{user `type`}}-{{isotime | clean_resource_name}}",
+            "ami_description": "gpuCI {{user `type` | upper}} Ubuntu 18.04",
+            "tags": {
+                "role": "gpuci",
+                "type": "{{user `type`}}",
+                "os": "ubuntu18.04"
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "bootstrap.sh",
+            "execute_command": "sudo env {{ .Vars }} {{ .Path }}"
+        },
+        {
+            "type": "ansible",
+            "playbook_file": "playbook_{{user `type`}}.yml"
+        },
+        {
+            "type": "shell",
+            "script": "post_build.sh"
+        }
+    ]
+}

@@ -20,6 +20,7 @@
       - curl
       - software-properties-common
       - unzip
+      - python3-pip
 
 - name: Initialize git-lfs
   command: git lfs install
@@ -28,6 +29,7 @@
 
 - name: Install pip packages
   pip:
+    executable: pip3
     name:
       - requests
       - PyYaml
