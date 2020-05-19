@@ -52,7 +52,10 @@
         },
         {
             "type": "ansible",
-            "playbook_file": "playbook_{{user `type`}}.yml"
+            "playbook_file": "playbook_{{user `type`}}.yml",
+            "extra_arguments": [
+                "-vvv"
+            ]
         },
         {
             "type": "shell",

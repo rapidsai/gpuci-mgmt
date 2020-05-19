@@ -35,6 +35,11 @@
       - PyYaml
       - jinja2
 
+- name: Create ubuntu home directory if not exists
+  file:
+    path: /home/ubuntu
+    state: directory
+
 - name: Download awscli
   unarchive:
     src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
