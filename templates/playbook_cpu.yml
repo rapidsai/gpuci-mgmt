@@ -1,0 +1,8 @@
+---
+- name: Common Configuration for All Nodes
+  hosts: all
+  become: yes
+  roles:
+    - common
+    - cpu
+    - post_common
