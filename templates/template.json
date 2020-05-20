@@ -52,7 +52,8 @@
         },
         {
             "type": "ansible",
-            "playbook_file": "playbook_{{user `type`}}.yml"
+            "playbook_file": "playbook_{{user `type`}}.yml",
+            "user": "ubuntu"
         },
         {
             "type": "shell",
