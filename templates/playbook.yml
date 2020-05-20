@@ -1,0 +1,16 @@
+---
+- name: CPU
+  hosts: cpu
+  become: yes
+  roles:
+    - common
+    - cpu
+    - post_common
+
+- name: GPU
+  hosts: gpu
+  become: yes
+  roles:
+    - common
+    - gpu
+    - post_common
