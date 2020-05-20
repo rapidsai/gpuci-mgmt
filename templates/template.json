@@ -53,10 +53,7 @@
         {
             "type": "ansible",
             "playbook_file": "playbook_{{user `type`}}.yml",
-            "user": "ubuntu",
-            "extra_arguments": [
-                "-vvv"
-            ]
+            "user": "ubuntu"
         },
         {
             "type": "shell",
