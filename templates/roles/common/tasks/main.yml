@@ -57,3 +57,11 @@
 - name: Add Docker apt repository
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+
+- name: Create rc.local
+  copy:
+    dest: /etc/rc.local
+    mode: '0555'
+    content: |
+      #!/bin/bash
+      

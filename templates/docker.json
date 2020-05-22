@@ -1,0 +1,45 @@
+{
+    "variables": {
+        "ansible_host": "default",
+        "ansible_connection": "docker",
+        "type": "cpu"
+    },
+    "builders": [
+        {
+            "type": "docker",
+            "image": "ubuntu:18.04",
+            "commit": true,
+            "run_command": [
+                "-d",
+                "-i",
+                "-t",
+                "--name",
+                "{{user `ansible_host`}}",
+                "{{.Image}}",
+                "/bin/bash"
+            ]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "bootstrap.sh"
+        },
+        {
+            "type": "ansible",
+            "playbook_file": "playbook.yml",
+            "user": "root",
+            "groups": [
+                "{{user `type`}}"
+            ],
+            "extra_arguments": [
+                "--extra-vars",
+                "ansible_host={{user `ansible_host`}} ansible_connection={{user `ansible_connection`}}"
+            ]
+        },
+        {
+            "type": "shell",
+            "script": "post_build.sh"
+        }
+    ]
+}
