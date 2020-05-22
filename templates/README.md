@@ -1,11 +1,11 @@
 # gpuCI AMI Templates
 
-This directory contains [packer](https://www.packer.io/) templates for building gpuCI AMIs.
+This directory contains a [packer](https://www.packer.io/) template for building gpuCI AMIs.
 
 ## Building the images
 
-1. Setup AWS keys
-2. Ensure the security group allows your IP to SSH
+1. [Setup AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+2. [Ensure the security group](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#SecurityGroupRules) in the template allows your IP to SSH
 3. Install packer (perhaps via `brew install packer`)
 4. `packer build -var type=cpu template.json` or `packer build -var type=gpu template.json`
 
@@ -13,7 +13,9 @@ This directory contains [packer](https://www.packer.io/) templates for building 
 
 ### Packer templates
 
-There is a single template `template.json` which builds either CPU or GPU with a user variable called `type`.
+The main template is `template.json`, It builds either CPU or GPU with a user variable called `type`.
+
+`docker.json` is a template which builds a docker image with the same scripts. This is useful for quick tests without having to wait for EC2 instances.
 
 ### Scripts
 
@@ -23,11 +25,9 @@ There are two scripts:
 
 ### Ansible
 
-There are two playbooks:
-- `playbook_cpu.yml` - For the CPU type
-- `playbook_gpu.yml` - For the GPU type
+There is a single playbook (`playbook.yml`) which has two different groups to run different roles.
 
-Each playbook has a few roles:
+There are a few roles:
 - `common` - Common packages/installs between CPU & GPU
 - `cpu` - CPU specific installs
 - `gpu` - GPU specific installs (NVIDIA drivers, CUDA, etc)
