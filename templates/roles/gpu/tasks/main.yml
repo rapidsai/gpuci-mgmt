@@ -34,3 +34,10 @@
     name: nvidia-docker2
     state: latest
     update_cache: yes
+
+- name: Create jenkins user
+  user:
+    name: jenkins
+    groups: docker
+    uid: 1001
+    append: yes
