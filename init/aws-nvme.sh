@@ -41,7 +41,9 @@ fi
   
 logger "Override docker setup and utilize internal docker registry mirror"
 sudo service docker stop
-sudo cat /etc/docker/daemon.json
+if [ -f /etc/docker/daemon.json ]; then
+  sudo cat /etc/docker/daemon.json
+fi
 cat <<EOL > /tmp/daemon.json
 {
     "registry-mirrors": ["http://docker-mirror.rapids.ai:5000"],

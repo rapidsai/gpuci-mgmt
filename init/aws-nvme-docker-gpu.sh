@@ -56,7 +56,9 @@ cat <<EOL > /tmp/daemon.json
 }
 EOL
 sudo mv /tmp/daemon.json /etc/docker/daemon.json
-sudo cat /etc/docker/daemon.json
+if [ -f /etc/docker/daemon.json ]; then
+  sudo cat /etc/docker/daemon.json
+fi
 
 logger "Move docker to nvme on /jenkins"
 if [ ! -d /jenkins/docker ] ; then
