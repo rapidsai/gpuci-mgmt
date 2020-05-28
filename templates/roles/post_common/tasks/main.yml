@@ -2,4 +2,6 @@
 - name: Add ubuntu to docker group
   user:
     name: ubuntu
-    groups: docker
+    groups: 
+      - docker
+      - wheel

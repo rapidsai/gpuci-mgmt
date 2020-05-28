@@ -21,6 +21,7 @@
       - software-properties-common
       - unzip
       - python3-pip
+      - sudo
 
 - name: Initialize git-lfs
   command: git lfs install
@@ -34,6 +35,33 @@
       - requests
       - PyYaml
       - jinja2
+
+- name: Make sure we have a 'wheel' group
+  group:
+    name: wheel
+    state: present
+
+- name: Create /etc/sudoers.d/wheel
+  copy:
+    content: "%wheel ALL=(ALL) NOPASSWD: ALL"
+    dest: /etc/sudoers.d/wheel
+    group: root
+    owner: root
+    mode: '0440'
+
+- name: Create ubuntu user
+  user:
+    name: ubuntu
+    uid: 1000
+
+- name: Add authorized keys
+  authorized_key:
+    user: ubuntu
+    key: '{{ item }}'
+  with_file:
+    - goai-gpuci.id_rsa.pub
+    - jenkins-master.id_rsa.pub
+    - jenkins-aws-master.id_rsa.pub
 
 - name: Create ubuntu home directory if not exists
   file:
