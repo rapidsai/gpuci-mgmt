@@ -20,13 +20,19 @@
       - curl
       - software-properties-common
       - unzip
-      - python3-pip
       - sudo
 
 - name: Initialize git-lfs
   command: git lfs install
   vars:
     ansible_become: no
+
+- name: Upgrade pip
+  pip:
+    executable: pip3
+    extra_args: --upgrade
+    name:
+      - pip
 
 - name: Install pip packages
   pip:
