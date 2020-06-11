@@ -32,9 +32,9 @@
   pip:
     executable: pip3
     name:
-      - requests
-      - PyYaml
-      - jinja2
+      - requests>=2.23.0
+      - PyYaml>=5.3.1
+      - jinja2>=2.11.2
 
 - name: Make sure we have a 'wheel' group
   group:
