@@ -37,10 +37,12 @@
 - name: Install pip packages
   pip:
     executable: pip3
+    extra_args: --ignore-installed
     name:
       - requests
       - PyYaml
       - jinja2
+    state: latest
 
 - name: Make sure we have a 'wheel' group
   group:
