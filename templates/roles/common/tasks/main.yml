@@ -9,7 +9,6 @@
       - git
       - git-lfs
       - nvme-cli
-      - ntp
       - build-essential
       - wget
       - curl
@@ -21,6 +20,14 @@
       - software-properties-common
       - unzip
       - sudo
+      - chrony
+
+- name: Configure Chrony
+  copy:
+    src: chrony.conf
+    dest: /etc/chrony/chrony.conf
+    mode: 0644
+  notify: restart chrony
 
 - name: Initialize git-lfs
   command: git lfs install
