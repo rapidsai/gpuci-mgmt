@@ -15,9 +15,9 @@
   apt_repository:
     repo: "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /"
 
-- name: Install CUDA 10.2
+- name: Install CUDA 11.0
   apt:
-    name: ['cuda=10.2.89-1','nvidia-driver-440=440.64.00-0ubuntu1','cuda-drivers=440.64.00-1','libnvidia-gl-440=440.64.00-0ubuntu1','nvidia-dkms-440=440.64.00-0ubuntu1','nvidia-modprobe=440.64.00-0ubuntu1','nvidia-settings=440.64.00-0ubuntu1','libnvidia-compute-440=440.64.00-0ubuntu1','nvidia-compute-utils-440=440.64.00-0ubuntu1','libnvidia-decode-440=440.64.00-0ubuntu1','libnvidia-encode-440=440.64.00-0ubuntu1','nvidia-utils-440=440.64.00-0ubuntu1','xserver-xorg-video-nvidia-440=440.64.00-0ubuntu1','libnvidia-cfg1-440=440.64.00-0ubuntu1','libnvidia-ifr1-440=440.64.00-0ubuntu1','libnvidia-fbc1-440=440.64.00-0ubuntu1','nvidia-kernel-source-440=440.64.00-0ubuntu1','libnvidia-common-440=440.64.00-0ubuntu1','nvidia-kernel-common-440=440.64.00-0ubuntu1']
+    name: ['cuda=11.0.2-1','cuda-11-0=11.0.2-1','cuda-runtime-11-0=11.0.2-1','cuda-drivers=450.51.05-1','cuda-drivers-450=450.51.05-1']
     state: present
     install_recommends: no
     update_cache: yes
