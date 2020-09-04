@@ -1,7 +1,7 @@
 #!/bin/bash
 # Tools for gpuCI scripts
 
-URL="https://raw.githubusercontent.com/rapidsai/gpuci-mgmt/master/tools"
+URL="https://raw.githubusercontent.com/rapidsai/gpuci-mgmt/main/tools"
 
 function logging {
   TS=`date`
