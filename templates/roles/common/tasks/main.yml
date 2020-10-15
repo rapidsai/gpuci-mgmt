@@ -1,4 +1,8 @@
 ---
+- name: Set timezone to PT
+  timezone:
+    name: America/Los_Angeles
+
 - name: Install common packages
   apt:
     update_cache: yes
