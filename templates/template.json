@@ -2,7 +2,9 @@
     "variables": {
         "aws_access_key": "",
         "aws_secret_key": "",
-        "type": "cpu"
+        "type": "cpu",
+        "arch": "amd64",
+        "instance": "t2.medium"
     },
     "builders": [
         {
@@ -13,7 +15,7 @@
             "source_ami_filter": {
                 "filters": {
                     "virtualization-type": "hvm",
-                    "name": "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*",
+                    "name": "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-{{user `arch`}}-server-*",
                     "root-device-type": "ebs"
                 },
                 "owners": [
@@ -21,14 +23,14 @@
                 ],
                 "most_recent": true
             },
-            "instance_type": "t2.medium",
+            "instance_type": "{{user `instance`}}",
             "associate_public_ip_address": true,
             "vpc_id": "vpc-81eb9ae9",
             "subnet_id": "subnet-45f29e2d",
             "security_group_id": "sg-011a953aa80956de1",
             "ssh_username": "ubuntu",
-            "ami_name": "gpuci-{{user `type`}}-{{isotime | clean_resource_name}}",
-            "ami_description": "gpuCI {{user `type` | upper}} Ubuntu 18.04",
+            "ami_name": "gpuci-{{user `type`}}-{{user `arch`}}-{{isotime | clean_resource_name}}",
+            "ami_description": "gpuCI {{user `type` | upper}}-{{user `arch` | upper}} Ubuntu 18.04",
             "launch_block_device_mappings": [
                 {
                     "device_name": "/dev/sda1",
@@ -40,6 +42,7 @@
             "tags": {
                 "role": "gpuci",
                 "type": "{{user `type`}}",
+                "arch", "{{user `arch`}}",
                 "os": "ubuntu18.04"
             }
         }
