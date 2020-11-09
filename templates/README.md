@@ -17,11 +17,15 @@ This directory contains a [packer](https://www.packer.io/) template for building
 
 The main template is `template.json`, with the following variables:
 
+**NOTE:** `aarch64` only works for `cpu` type builds currently; `amd64` works for both `cpu` and `gpu` types
+
 Variable | Values | Default | Purpose
 --- | --- | --- | ---
 `type` | `cpu` OR `gpu` | `cpu` | Type of image to build
 `arch` | `amd64` OR `aarch64` | `amd64` | Architecture of the build
 `instance` | `t2.medium` for `amd64` OR<br> `t4g.medium` for `aarch64` | `t2.medium` | Instance to use for build
+
+Define these with `-var <variable>=<value>` when issuing the `packer build` command
 
 #### Local docker builds
 
