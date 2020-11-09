@@ -42,7 +42,7 @@
             "tags": {
                 "role": "gpuci",
                 "type": "{{user `type`}}",
-                "arch", "{{user `arch`}}",
+                "arch": "{{user `arch`}}",
                 "os": "ubuntu18.04"
             }
         }
