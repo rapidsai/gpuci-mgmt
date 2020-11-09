@@ -13,7 +13,17 @@ This directory contains a [packer](https://www.packer.io/) template for building
 
 ### Packer templates
 
-The main template is `template.json`, It builds either CPU or GPU with a user variable called `type`.
+#### EC2 builds
+
+The main template is `template.json`, with the following variables:
+
+Variable | Values | Default | Purpose
+--- | --- | --- | ---
+`type` | `cpu` OR `gpu` | `cpu` | Type of image to build
+`arch` | `amd64` OR `aarch64` | `amd64` | Architecture of the build
+`instance` | `t2.medium` for `amd64` OR<br> `t4g.medium` for `aarch64` | `t2.medium` | Instance to use for build
+
+#### Local docker builds
 
 `docker.json` is a template which builds a docker image with the same scripts. This is useful for quick tests without having to wait for EC2 instances.
 
