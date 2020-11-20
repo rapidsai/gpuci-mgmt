@@ -8,7 +8,7 @@ cd templates
 #echo "========== GPU-amd64 Build =========="
 #/root/packer build -var type=gpu -machine-readable template.json | tee gpu_amd64_build.log
 echo "========== CPU-arm64 Build =========="
-/root/packer build -var type=cpu -var arch=arm64 -var instance=t4g.medium -machine-readable template.json | tee cpu_arm64_build.log
+/root/packer build -var type=cpu -var arch=arm64 -var instance=a1.large -machine-readable template.json | tee cpu_arm64_build.log
 echo "========== Artifacts =========="
 #cpu_amd64_id=`cat cpu_amd64_build.log | grep "artifact" | grep ",id," | cut -d "," -f 6 | cut -d ":" -f 2`
 #gpu_amd64_id=`cat gpu_amd64_build.log | grep "artifact" | grep ",id," | cut -d "," -f 6 | cut -d ":" -f 2`
