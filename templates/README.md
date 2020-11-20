@@ -23,7 +23,7 @@ Variable | Values | Default | Purpose
 --- | --- | --- | ---
 `type` | `cpu` OR `gpu` | `cpu` | Type of image to build
 `arch` | `amd64` OR `arm64` | `amd64` | Architecture of the build
-`instance` | `t2.medium` for `amd64` OR<br> `t4g.medium` for `arm64` | `t2.medium` | Instance to use for build
+`instance` | `t2.medium` for `amd64` OR<br> `a1.large` for `arm64` | `t2.medium` | Instance to use for build
 
 Define these with `-var <variable>=<value>` when issuing the `packer build` command
 
