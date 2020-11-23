@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Copyright (c) 2019, NVIDIA CORPORATION.
+# Copyright (c) 2020, NVIDIA CORPORATION.
 #
-# AWS init script for gpuCI nodes with nvme drives on nodes
+# GCP init script for gpuCI nodes
 #
 set -e
 
