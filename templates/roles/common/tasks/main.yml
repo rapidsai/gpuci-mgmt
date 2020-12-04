@@ -87,12 +87,20 @@
     path: /home/ubuntu
     state: directory
 
-- name: Download awscli
+- name: Download awscli (x86_64)
   unarchive:
     src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     dest: /home/ubuntu/
     remote_src: yes
+  when: ansible_architecture == "x86_64"
 
+- name: Download awscli (aarch64)
+  unarchive:
+    src: https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip
+    dest: /home/ubuntu/
+    remote_src: yes
+  when: ansible_architecture == "aarch64"
+  
 - name: Install awscli
   command: /home/ubuntu/aws/install
 
@@ -101,9 +109,15 @@
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
-- name: Add Docker apt repository
+- name: Add Docker apt repository (x86_64)
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+  when: ansible_architecture == "x86_64"
+
+- name: Add Docker apt repository (aarch64)
+  apt_repository:
+    repo: "deb [arch=arm64] https://download.docker.com/linux/ubuntu bionic stable"
+  when: ansible_architecture == "aarch64"
 
 - name: Create rc.local
   copy:
