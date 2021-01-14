@@ -59,11 +59,11 @@ def update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64):
         Jenkins.instance.clouds.each { cloud ->
             if (cloud instanceof AmazonEC2Cloud) {
                 cloud.getTemplates().each { agent ->
-                    if (agent.getDisplayName().toLowerCase().contains("cpu".toLowerCase())) {
+                    if (agent.getDisplayName().toLowerCase().contains("cpu")) {
                         agent.setAmi("%s")
                         if (is_arm(agent.type.toString())) agent.setAmi('%s')    
                     }
-                    if (agent.getDisplayName().toLowerCase().contains("gpu".toLowerCase())) agent.setAmi("%s")
+                    if (agent.getDisplayName().toLowerCase().contains("gpu")) agent.setAmi("%s")
                 }
             }
         }
@@ -75,7 +75,7 @@ def update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64):
     headers = {jenkins_crumb_name: jenkins_crumb_value}
     r = jenkins_session.post(groovy_url, verify=verify_ssl, data=payload, headers=headers)
     if not r.status_code == 200:
-        print(f'HTTP POST to Jenkins URL {groovy_url} resulted in {r.status_code}'
+        print(f'HTTP POST to Jenkins URL {groovy_url} resulted in {r.status_code}')
         print(r.headers)
         print(r.text)
         sys.exit(1)
