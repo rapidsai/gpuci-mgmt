@@ -17,16 +17,11 @@ gpu_ami_amd64 = os.getenv("GPU_AMI_AMD64")
 cpu_ami_amd64 = os.getenv("CPU_AMI_AMD64")
 cpu_ami_arm64 = os.getenv("CPU_AMI_ARM64")
 
-build_output_text = ""
-
 def get_crumb_url():
     request_url = jenkins_base_url.replace('https://', '');
     if not request_url.endswith('/'):
-        request_url = '%s/' % request_url
-    return 'https://%s:%s@%scrumbIssuer/api/json' % (
-            jenkins_auth_user,
-            jenkins_auth_password,
-            request_url)
+        request_url = f'{request_url}/'
+    return f'https://{jenkins_auth_user}:{jenkins_auth_password}@{request_url}crumbIssuer/api/json'
 
 def get_jenkins_crumb():
     global jenkins_crumb_name
@@ -44,11 +39,8 @@ def get_jenkins_crumb():
 def get_groovy_url():
     groovy_url = jenkins_base_url.replace('https://', '');
     if not groovy_url.endswith('/'):
-        groovy_url = '%s/' % groovy_url
-    return 'https://%s:%s@%sscriptText' % (
-            jenkins_auth_user,
-            jenkins_auth_password,
-            groovy_url)
+        groovy_url = f'{groovy_url}/'
+    return f'https://{jenkins_auth_user}:{jenkins_auth_password}@{groovy_url}scriptText'
 
 def update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64):
     groovy_url = get_groovy_url()
@@ -83,7 +75,7 @@ def update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64):
     headers = {jenkins_crumb_name: jenkins_crumb_value}
     r = jenkins_session.post(groovy_url, verify=verify_ssl, data=payload, headers=headers)
     if not r.status_code == 200:
-        print('HTTP POST to Jenkins URL %s resulted in %s' % (groovy_url, r.status_code))
+        print(f'HTTP POST to Jenkins URL {groovy_url} resulted in {r.status_code}'
         print(r.headers)
         print(r.text)
         sys.exit(1)
