@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ENV PATH=/root/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH=/root:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
