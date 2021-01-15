@@ -6,7 +6,8 @@ RUN apt-get update && \
     apt-get install -y software-properties-common && \
     apt-add-repository --yes --update ppa:ansible/ansible && \
     apt-get update && \
-    apt-get install -y ansible unzip wget python3-distutils python3-apt
+    apt-get install -y ansible unzip wget python3-distutils python3-apt && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN wget 'https://releases.hashicorp.com/packer/1.5.6/packer_1.5.6_linux_amd64.zip' &&  \
     unzip 'packer_1.5.6_linux_amd64.zip'
