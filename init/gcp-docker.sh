@@ -22,6 +22,12 @@ if [ -f /etc/docker/daemon.json ]; then
 fi
 cat <<EOL > /tmp/daemon.json
 {
+    "runtimes": {
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    },
     "registry-mirrors": ["http://docker-mirror.rapids.ai:5000"],
     "experimental": true
 }
