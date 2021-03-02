@@ -51,9 +51,8 @@
     user: jenkins
     key: '{{ item }}'
   with_file:
-    - ../../common/files/goai-gpuci.id_rsa.pub
-    - ../../common/files/jenkins-master.id_rsa.pub
-    - ../../common/files/jenkins-aws-master.id_rsa.pub
+    - ../../common/files/jenkins-prod.id_rsa.pub
+    - ../../common/files/jenkins-ec2.id_rsa.pub
 
 - name: Initialize git-lfs
   command: git lfs install
