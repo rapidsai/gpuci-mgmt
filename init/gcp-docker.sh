@@ -12,6 +12,9 @@ function logger {
   echo "[$SCRIPT_NAME $TS] $@"
 }
 
+logger "Update/upgrade image first; before unattended-upgrades runs"
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get clean
+
 logger "Override docker setup and utilize internal docker registry mirror"
 sudo service docker stop
 if [ -f /etc/docker/daemon.json ]; then
