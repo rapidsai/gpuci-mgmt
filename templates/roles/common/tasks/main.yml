@@ -78,9 +78,8 @@
     user: ubuntu
     key: '{{ item }}'
   with_file:
-    - goai-gpuci.id_rsa.pub
-    - jenkins-master.id_rsa.pub
-    - jenkins-aws-master.id_rsa.pub
+    - jenkins-prod.id_rsa.pub
+    - jenkins-ec2.id_rsa.pub
 
 - name: Create ubuntu home directory if not exists
   file:
@@ -100,7 +99,7 @@
     dest: /home/ubuntu/
     remote_src: yes
   when: ansible_architecture == "aarch64"
-  
+
 - name: Install awscli
   command: /home/ubuntu/aws/install
 
@@ -125,4 +124,4 @@
     mode: '0555'
     content: |
       #!/bin/bash
-      
+
