@@ -43,7 +43,7 @@
     groups:
       - docker
       - wheel
-    uid: 1001
+    uid: 1010
     append: yes
 
 - name: Add authorized keys
