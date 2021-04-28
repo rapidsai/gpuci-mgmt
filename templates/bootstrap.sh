@@ -1,6 +1,5 @@
 #!/bin/bash
 set -ex
-sleep 30
 df -h
 lsblk
 apt-get update

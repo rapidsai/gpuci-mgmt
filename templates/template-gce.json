@@ -16,7 +16,7 @@
         "zone": "us-central1-a",
         "image_description": "gpuCI {{user `type` | upper}}-{{user `arch` | upper}} Ubuntu 18.04",
         "image_name": "gpuci-{{user `type`}}-{{user `arch`}}-{{isotime | clean_resource_name}}",
-        "disk_size": 12,
+        "disk_size": 20,
         "disk_type": "pd-ssd",
         "ssh_username": "ubuntu",
         "subnetwork": "gpuci-uscentral1",
