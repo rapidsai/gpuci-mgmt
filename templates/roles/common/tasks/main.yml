@@ -1,8 +1,4 @@
 ---
-- name: Set timezone to PT
-  timezone:
-    name: America/Los_Angeles
-
 - name: Install common packages
   apt:
     update_cache: yes
@@ -25,6 +21,11 @@
       - unzip
       - sudo
       - chrony
+      - tzdata
+
+- name: Set timezone to PT
+  timezone:
+    name: America/Los_Angeles
 
 - name: Configure Chrony
   copy:
@@ -118,10 +119,16 @@
     repo: "deb [arch=arm64] https://download.docker.com/linux/ubuntu bionic stable"
   when: ansible_architecture == "aarch64"
 
+- name: Install Docker CE
+  apt: 
+    update_cache: yes
+    pkg: 
+      - docker-ce
+      - docker-ce-cli
+
 - name: Create rc.local
   copy:
     dest: /etc/rc.local
     mode: '0555'
     content: |
       #!/bin/bash
-
