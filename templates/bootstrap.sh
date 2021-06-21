@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ex
-sleep 30
+if [[ "$PACKER_BUILDER_TYPE" != "docker" ]]; then
+    sleep 30
+fi
 df -h
 lsblk
 apt-get update
