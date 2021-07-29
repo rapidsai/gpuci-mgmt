@@ -1,38 +1,38 @@
 ---    
 - name: Add key for NVIDIA CUDA repos
   apt_key:
-    url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+    url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
     state: present
 
 - name: Add repo for NVIDIA CUDA drivers
   apt_repository:
     repo: "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /"
 
-- name: Install CUDA 11.2
+- name: Install CUDA 11.4
   apt:
     name:
-      - cuda=11.2.2-1
-      - cuda-11-2=11.2.2-1
-      - cuda-runtime-11-2=11.2.2-1
-      - cuda-drivers=460.32.03-1
-      - cuda-drivers-460=460.32.03-1
-      - nvidia-driver-460=460.32.03-0ubuntu1
-      - libnvidia-gl-460=460.32.03-0ubuntu1
-      - nvidia-dkms-460=460.32.03-0ubuntu1
-      - nvidia-kernel-source-460=460.32.03-0ubuntu1
-      - nvidia-kernel-common-460=460.32.03-0ubuntu1
-      - libnvidia-common-460=460.32.03-0ubuntu1
-      - libnvidia-compute-460=460.32.03-0ubuntu1
-      - libnvidia-extra-460=460.32.03-0ubuntu1
-      - nvidia-compute-utils-460=460.32.03-0ubuntu1
-      - libnvidia-decode-460=460.32.03-0ubuntu1
-      - libnvidia-encode-460=460.32.03-0ubuntu1
-      - xserver-xorg-video-nvidia-460=460.32.03-0ubuntu1
-      - nvidia-modprobe=460.32.03-0ubuntu1
-      - nvidia-utils-460=460.32.03-0ubuntu1
-      - libnvidia-cfg1-460=460.32.03-0ubuntu1
-      - libnvidia-ifr1-460=460.32.03-0ubuntu1
-      - libnvidia-fbc1-460=460.32.03-0ubuntu1
+      - cuda=11.4.0-1
+      - cuda-11-4=11.4.0-1
+      - cuda-runtime-11-4=11.4.0-1
+      - cuda-drivers=470.57.02-1
+      - cuda-drivers-470=470.57.02-1
+      - nvidia-driver-470=470.57.02-0ubuntu1
+      - libnvidia-gl-470=470.57.02-0ubuntu1
+      - nvidia-dkms-470=470.57.02-0ubuntu1
+      - nvidia-kernel-source-470=470.57.02-0ubuntu1
+      - nvidia-kernel-common-470=470.57.02-0ubuntu1
+      - libnvidia-common-470=470.57.02-0ubuntu1
+      - libnvidia-compute-470=470.57.02-0ubuntu1
+      - libnvidia-extra-470=470.57.02-0ubuntu1
+      - nvidia-compute-utils-470=470.57.02-0ubuntu1
+      - libnvidia-decode-470=470.57.02-0ubuntu1
+      - libnvidia-encode-470=470.57.02-0ubuntu1
+      - xserver-xorg-video-nvidia-470=470.57.02-0ubuntu1
+      - nvidia-modprobe=470.57.02-0ubuntu1
+      - nvidia-utils-470=470.57.02-0ubuntu1
+      - libnvidia-cfg1-470=470.57.02-0ubuntu1
+      - libnvidia-ifr1-470=470.57.02-0ubuntu1
+      - libnvidia-fbc1-470=470.57.02-0ubuntu1
     state: present
     install_recommends: no
     update_cache: yes
@@ -49,27 +49,27 @@
     selection: hold
   loop:
     - cuda
-    - cuda-11-2
-    - cuda-runtime-11-2
+    - cuda-11-4
+    - cuda-runtime-11-4
     - cuda-drivers
-    - cuda-drivers-460
-    - nvidia-driver-460
-    - libnvidia-gl-460
-    - nvidia-dkms-460
-    - nvidia-kernel-source-460
-    - nvidia-kernel-common-460
-    - libnvidia-common-460
-    - libnvidia-compute-460
-    - libnvidia-extra-460
-    - nvidia-compute-utils-460
-    - libnvidia-decode-460
-    - libnvidia-encode-460
-    - xserver-xorg-video-nvidia-460
+    - cuda-drivers-470
+    - nvidia-driver-470
+    - libnvidia-gl-470
+    - nvidia-dkms-470
+    - nvidia-kernel-source-470
+    - nvidia-kernel-common-470
+    - libnvidia-common-470
+    - libnvidia-compute-470
+    - libnvidia-extra-470
+    - nvidia-compute-utils-470
+    - libnvidia-decode-470
+    - libnvidia-encode-470
+    - xserver-xorg-video-nvidia-470
     - nvidia-modprobe
-    - nvidia-utils-460
-    - libnvidia-cfg1-460
-    - libnvidia-ifr1-460
-    - libnvidia-fbc1-460
+    - nvidia-utils-470
+    - libnvidia-cfg1-470
+    - libnvidia-ifr1-470
+    - libnvidia-fbc1-470
   
 - name: Install nvidia docker apt key
   apt_key:
