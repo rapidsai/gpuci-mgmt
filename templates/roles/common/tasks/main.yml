@@ -111,12 +111,12 @@
 
 - name: Add Docker apt repository (x86_64)
   apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
   when: ansible_architecture == "x86_64"
 
 - name: Add Docker apt repository (aarch64)
   apt_repository:
-    repo: "deb [arch=arm64] https://download.docker.com/linux/ubuntu bionic stable"
+    repo: "deb [arch=arm64] https://download.docker.com/linux/ubuntu focal stable"
   when: ansible_architecture == "aarch64"
 
 - name: Install Docker CE
