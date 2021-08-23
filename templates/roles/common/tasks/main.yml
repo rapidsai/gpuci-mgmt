@@ -3,6 +3,7 @@
   apt:
     update_cache: yes
     pkg:
+      - jq
       - ansible
       - openjdk-8-jdk-headless
       - git
@@ -131,10 +132,3 @@
     mode: '0555'
     content: |
       #!/bin/bash
-
-- name: Install jq
-  get_url:
-    url: https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
-    dest: /usr/local/bin/jq
-    mode: '0755'
-
