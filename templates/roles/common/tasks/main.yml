@@ -22,6 +22,7 @@
       - sudo
       - chrony
       - tzdata
+      - acl
 
 - name: Set timezone to PT
   timezone:
@@ -132,3 +133,9 @@
     mode: '0555'
     content: |
       #!/bin/bash
+
+- name: Configure python alternative
+  alternatives:
+    name: python
+    link: /usr/bin/python
+    path: /usr/bin/python3.8
