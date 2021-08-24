@@ -1,12 +1,12 @@
 ---    
 - name: Add key for NVIDIA CUDA repos
   apt_key:
-    url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+    url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
     state: present
 
 - name: Add repo for NVIDIA CUDA drivers
   apt_repository:
-    repo: "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /"
+    repo: "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /"
 
 - name: Install CUDA 11.4
   apt:
@@ -77,7 +77,7 @@
 
 - name: Add nvidia-docker sources list
   get_url:
-    url: https://nvidia.github.io/nvidia-docker/ubuntu18.04/nvidia-docker.list
+    url: https://nvidia.github.io/nvidia-docker/ubuntu20.04/nvidia-docker.list
     dest: /etc/apt/sources.list.d/nvidia-docker.list
 
 - name: Install nvidia-docker2
