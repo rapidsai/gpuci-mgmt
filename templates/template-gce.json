@@ -10,7 +10,7 @@
       {
         "type": "googlecompute",
         "account_file": "{{user `key_file`}}",
-        "project_id": "nv-ai-infra",
+        "project_id": "rapids-gpuci",
         "machine_type": "{{user `machine_type`}}",
         "source_image_family": "{{user `source_image_family`}}",
         "zone": "us-central1-a",
@@ -21,7 +21,7 @@
         "ssh_username": "ubuntu",
         "subnetwork": "gpuci-uscentral1",
         "network": "gpuci-vpc",
-        "network_project_id": "nv-ai-infra"
+        "network_project_id": "rapids-gpuci"
       }
     ],
     "provisioners": [
@@ -44,4 +44,3 @@
         }
     ]
 }
-  
