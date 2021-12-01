@@ -11,28 +11,9 @@
 - name: Install CUDA 11.4
   apt:
     name:
-      - cuda=11.4.0-1
-      - cuda-11-4=11.4.0-1
-      - cuda-runtime-11-4=11.4.0-1
-      - cuda-drivers=470.57.02-1
-      - cuda-drivers-470=470.57.02-1
-      - nvidia-driver-470=470.57.02-0ubuntu1
-      - libnvidia-gl-470=470.57.02-0ubuntu1
-      - nvidia-dkms-470=470.57.02-0ubuntu1
-      - nvidia-kernel-source-470=470.57.02-0ubuntu1
-      - nvidia-kernel-common-470=470.57.02-0ubuntu1
-      - libnvidia-common-470=470.57.02-0ubuntu1
-      - libnvidia-compute-470=470.57.02-0ubuntu1
-      - libnvidia-extra-470=470.57.02-0ubuntu1
-      - nvidia-compute-utils-470=470.57.02-0ubuntu1
-      - libnvidia-decode-470=470.57.02-0ubuntu1
-      - libnvidia-encode-470=470.57.02-0ubuntu1
-      - xserver-xorg-video-nvidia-470=470.57.02-0ubuntu1
-      - nvidia-modprobe=470.57.02-0ubuntu1
-      - nvidia-utils-470=470.57.02-0ubuntu1
-      - libnvidia-cfg1-470=470.57.02-0ubuntu1
-      - libnvidia-ifr1-470=470.57.02-0ubuntu1
-      - libnvidia-fbc1-470=470.57.02-0ubuntu1
+      - cuda-libraries-11-5
+      - cuda-drivers-495
+      - cuda-compiler-11-5
     state: present
     install_recommends: no
     update_cache: yes
@@ -48,28 +29,9 @@
     name: "{{ item }}"
     selection: hold
   loop:
-    - cuda
-    - cuda-11-4
-    - cuda-runtime-11-4
-    - cuda-drivers
-    - cuda-drivers-470
-    - nvidia-driver-470
-    - libnvidia-gl-470
-    - nvidia-dkms-470
-    - nvidia-kernel-source-470
-    - nvidia-kernel-common-470
-    - libnvidia-common-470
-    - libnvidia-compute-470
-    - libnvidia-extra-470
-    - nvidia-compute-utils-470
-    - libnvidia-decode-470
-    - libnvidia-encode-470
-    - xserver-xorg-video-nvidia-470
-    - nvidia-modprobe
-    - nvidia-utils-470
-    - libnvidia-cfg1-470
-    - libnvidia-ifr1-470
-    - libnvidia-fbc1-470
+    - cuda-libraries-11-5
+    - cuda-drivers-495
+    - cuda-compiler-11-5
   
 - name: Install nvidia docker apt key
   apt_key:
