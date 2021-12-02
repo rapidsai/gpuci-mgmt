@@ -1,0 +1,6 @@
+---
+# ./vars/versions.yml
+
+cuda_libraries: 11.5.1-1
+cuda_drivers: 495.29.05-1
+cuda_compiler: 11.5.1-1

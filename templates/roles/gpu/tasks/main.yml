@@ -8,12 +8,13 @@
   apt_repository:
     repo: "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /"
 
-- name: Install CUDA 11.4
+- name: Install CUDA 11.5
+  - include_vars: versions.yml
   apt:
     name:
-      - cuda-libraries-11-5
-      - cuda-drivers-495
-      - cuda-compiler-11-5
+      - "cuda-libraries-11-5={{ cuda_libraries }}"
+      - "cuda-drivers-495={{ cuda_drivers }}"
+      - "cuda-compiler-11-5={{ cuda_compiler }}"
     state: present
     install_recommends: no
     update_cache: yes
