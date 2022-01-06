@@ -1,4 +1,5 @@
 ---    
+- include_vars: versions.yml
 - name: Add key for NVIDIA CUDA repos
   apt_key:
     url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
@@ -9,7 +10,6 @@
     repo: "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /"
 
 - name: Install CUDA
-  include_vars: versions.yml
   apt:
     name:
       - "cuda-libraries-{{ cuda_libraries_version }}"
@@ -26,7 +26,6 @@
     update_cache: yes
 
 - name: Hold CUDA Packages
-  include_vars: versions.yml
   dpkg_selections:
     name: "{{ item }}"
     selection: hold
