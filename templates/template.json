@@ -24,7 +24,7 @@
                 "most_recent": true
             },
             "instance_type": "{{user `instance`}}",
-            "iam_instance_profile": "sccache-s3",
+            "iam_instance_profile": "jenkins-agents",
             "associate_public_ip_address": true,
             "vpc_id": "vpc-81eb9ae9",
             "subnet_id": "subnet-45f29e2d",
