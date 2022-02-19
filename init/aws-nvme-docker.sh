@@ -90,4 +90,4 @@ sudo crontab /tmp/existing-crons
 
 logger "Connect node to Jenkins"
 wget https://gpuci.gpuopenanalytics.com/plugin/ec2/AMI-Scripts/ubuntu-ami-setup.sh
-sudo sh ubuntu-ami-setup.sh gpuci.gpuopenanalytics.com
+sudo bash ubuntu-ami-setup.sh gpuci.gpuopenanalytics.com
