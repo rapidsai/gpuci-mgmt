@@ -23,6 +23,14 @@
       - chrony
       - tzdata
       - acl
+      - tar
+      - gzip
+
+- name: Install gpuci-tools
+  unarchive:
+    src: https://github.com/rapidsai/gpuci-tools/releases/latest/download/tools.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
 
 - name: Set timezone to PT
   timezone:
@@ -121,9 +129,9 @@
   when: ansible_architecture == "aarch64"
 
 - name: Install Docker CE
-  apt: 
+  apt:
     update_cache: yes
-    pkg: 
+    pkg:
       - docker-ce
       - docker-ce-cli
 
