@@ -2,7 +2,7 @@
 - include_vars: versions.yml
 - name: Add key for NVIDIA CUDA repos
   apt_key:
-    url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+    url: http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
     state: present
 
 - name: Add repo for NVIDIA CUDA drivers
