@@ -45,7 +45,8 @@ def get_groovy_url():
 def update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64):
     groovy_url = get_groovy_url()
     groovy_script = """
-        import hudson.plugins.ec2.AmazonEC2Cloud
+        import hudson.plugins.ec2.AmazonEC2Cloud;
+        import hudson.slaves.OfflineCause.ByCLI;
 
         def is_arm(instance_class) {
             arm_classes = ['m6g', 'c6g', 'r6g', 'a1']
@@ -68,6 +69,13 @@ def update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64):
             }
         }
         Jenkins.instance.save()
+
+        for (agent in hudson.model.Hudson.instance.slaves) {
+            if (agent.name.toLowerCase().contains("ec2")) {
+                println('Marking machine offline: ' + agent.name);
+                agent.getComputer().setTemporarilyOffline(true, new ByCLI("Machine taken offline due to outdated AMI."))
+            }
+        }
 
         println "yes"
         """ % (cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64)
