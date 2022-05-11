@@ -56,13 +56,23 @@ def update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64):
             return false
         }
 
+        def is_cpu(display_name) {
+            display_name = display_name.toLowerCase()
+            cpu_descriptions = ["cpu", "builder", "runner"]
+            for (desc in cpu_descriptions) {
+                if (display_name.contains(desc)) {
+                    return true
+                }
+            }
+            return false
+        }
 
         Jenkins.instance.clouds.each { cloud ->
             if (cloud instanceof AmazonEC2Cloud) {
                 cloud.getTemplates().each { agent ->
-                    if (agent.getDisplayName().toLowerCase().contains("cpu")) {
+                    if (is_cpu(agent.getDisplayName())) {
                         agent.setAmi("%s")
-                        if (is_arm(agent.type.toString())) agent.setAmi('%s')    
+                        if (is_arm(agent.type.toString())) agent.setAmi('%s')
                     }
                     if (agent.getDisplayName().toLowerCase().contains("gpu")) agent.setAmi("%s")
                 }
