@@ -77,7 +77,7 @@ def update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64):
             }
         }
 
-        println "yes"
+        println "ami update complete"
         """ % (cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64)
     payload = {'script': groovy_script, jenkins_crumb_name: jenkins_crumb_value}
     headers = {jenkins_crumb_name: jenkins_crumb_value}
@@ -88,7 +88,8 @@ def update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64):
         print(r.text)
         sys.exit(1)
 
-    if not r.text.strip() == "yes":
+    final_line = r.text.strip().split("\n")[-1]
+    if not final_line == "ami update complete":
         print(r.text)
         return False
     
