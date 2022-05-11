@@ -92,7 +92,8 @@ def update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64):
     if not final_line == "ami update complete":
         print(r.text)
         return False
-    
+
+    print(r.text)
     return True
 
 def main():
@@ -102,10 +103,11 @@ def main():
     assert "ami" in cpu_ami_arm64
     assert "ami" in gpu_ami_amd64
 
+    print("Updating AMIs and marking existing EC2 nodes offline...")
     update_success = update_jenkins_ami_id(cpu_ami_amd64, cpu_ami_arm64, gpu_ami_amd64)
 
     if update_success:
-        print("Jenkins AMI has been updated.")
+        print("Jenkins AMIs have been updated.")
     else:
         print("Ran into an error when attempting to update the Jenkins AMI ID")
 
