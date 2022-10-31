@@ -5,7 +5,7 @@
     pkg:
       - jq
       - ansible
-      - openjdk-8-jdk-headless
+      - openjdk-11-jdk-headless
       - git
       - git-lfs
       - nvme-cli
