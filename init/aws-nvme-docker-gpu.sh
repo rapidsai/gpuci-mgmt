@@ -40,7 +40,7 @@ else
   logger "/jenkins/tmp already exists"
 fi
   
-logger "Override docker setup and utilize internal docker registry mirror"
+logger "Override docker setup"
 sudo service docker stop
 sudo cat /etc/docker/daemon.json
 cat <<EOL > /tmp/daemon.json
@@ -51,7 +51,6 @@ cat <<EOL > /tmp/daemon.json
             "runtimeArgs": []
         }
     },
-    "registry-mirrors": ["http://docker-mirror.rapids.ai:5000"],
     "experimental": true
 }
 EOL

@@ -17,7 +17,7 @@ df -h
 sudo mkdir -p /jenkins
 sudo chown -R ubuntu:ubuntu /jenkins
 
-# Override docker setup and utilize internal docker registry mirror
+# Override docker setup
 sudo service docker stop
 if [ -f /etc/docker/daemon.json ]; then
   sudo cat /etc/docker/daemon.json
@@ -30,7 +30,6 @@ cat <<EOL > /tmp/daemon.json
             "runtimeArgs": []
         }
     },
-    "registry-mirrors": ["http://docker-mirror.rapids.ai:5000"],
     "experimental": true
 }
 EOL
