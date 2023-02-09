@@ -20,14 +20,13 @@ logger "Ensure ubuntu user has full rights on directory for Jenkins work"
 sudo mkdir -p /jenkins
 sudo chown -R ubuntu:ubuntu /jenkins
 
-logger "Override docker setup and utilize internal docker registry mirror"
+logger "Override docker setup"
 sudo service docker stop
 if [ -f /etc/docker/daemon.json ]; then
   sudo cat /etc/docker/daemon.json
 fi
 cat <<EOL > /tmp/daemon.json
 {
-    "registry-mirrors": ["http://docker-mirror.rapids.ai:5000"],
     "experimental": true
 }
 EOL
